@@ -27,8 +27,7 @@ var boundingRect = {
 };
 
 var nodes = [
-  //{name: 'center', width: 0, height: 0, x: width / 2, y: height / 2, fixed:
-  // true},
+//{name: 'center', width: 0, height: 0, x: width / 2, y: height / 2, fixed: true},
   {name: 'SupremeCourt',   width: 21+ 9/16, height: 18+ 9/16},
   {name: 'AkronLaw',       width: 21+ 3/ 4, height: 18+ 3/ 4},
 //{name: 'TreeOctopus',    width: 23+ 3/16, height: 35+ 5/16},
