@@ -47,16 +47,23 @@ const nodes = [
   { name: "Red"  , width: 22.000, height: 15.500, drop: 3.250 },
   { name: "Trio" , width: 28.375, height: 12.250, drop: 1.875 },
   { name: "Peep" , width: 20.750, height: 12.875, drop: 3.000 },
-  { name: "Legs" , width: 16.000, height: 18.000, drop: 0.000 }
+  { name: "Legs" , width: 15.750, height: 17.750, drop: 4.500 }
 ];
 
-const locks = { // top-left corner!
+const locks = { // hook position from top-left corner!
+  "Red"  : { x: 41+31/32, y: 21+ 3/ 8 },
+  "Trio" : { x: 68+21/32, y: 18+11/32 },
+  "Peep" : { x: 42+ 5/ 8, y: 38+ 1/ 8 },
+  "Legs" : { x: 62+ 3/ 8, y: 34+ 3/ 4 },
+  "Lumen": { x: 83      , y: 33+ 7/32 },
+  "Vespa": { x: 60+27/32, y: 51+ 5/ 8 },
+  "Sox"  : { x: 84+ 7/ 8, y: 49+ 3/32 }
 };
 
 nodes.forEach(n => {
   if (locks[n.name]) {
-    n.x = locks[n.name].x + n.width / 2;
-    n.y = locks[n.name].y + n.height / 2;
+    n.x = locks[n.name].x;
+    n.y = (locks[n.name].y - n.drop) + n.height / 2;
     n.fixed = true;
   }
 });
@@ -183,7 +190,11 @@ function toFraction(val) {
 }
 
 function formatLabel(n) {
-  return `${toFraction(n.x + (boundingRect.xOffset() || 0))} × ${toFraction(((n.y - n.height / 2) + n.drop) + (boundingRect.yOffset() || 0))}`;
+  let x = n.x + (boundingRect.xOffset() || 0);
+  let y = (n.y - n.height / 2) + n.drop + (boundingRect.yOffset() || 0);
+  // Swap X to be from right
+  x = WIDTH - x;
+  return `${toFraction(x)} × ${toFraction(y)}`;
 }
 
 function testCollision(n) {
